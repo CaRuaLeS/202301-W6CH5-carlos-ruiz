@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Apple",
+    "color": "Red",
+    "weigth": 2
+  },
+  {
+    "name": "Banana",
+    "color": "yellow",
+    "weigth": 0.5
+  },
+  {
+    "name": "Orange",
+    "color": "Orange",
+    "weigth": 1
+  }
+]

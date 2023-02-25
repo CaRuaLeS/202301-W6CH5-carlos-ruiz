@@ -7,7 +7,9 @@ const server = http.createServer(app);
 
 server.listen(PORT);
 
-server.on('error', () => {});
+server.on('error', () => {
+  console.log('No server');
+});
 
 server.on('listening', () => {
   console.log('Listening in http://localhost:' + PORT);
