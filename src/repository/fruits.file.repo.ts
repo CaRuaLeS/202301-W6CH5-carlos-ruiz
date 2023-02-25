@@ -12,7 +12,10 @@ export type Fruit = {
 
 export interface FruitsRepoStructure {
   read(): Promise<Fruit[]>;
+  readById(id: Fruit['id']): Promise<Fruit>;
   write(info: Fruit): Promise<void>;
+  update(info: Fruit): Promise<void>;
+  delete(id: Fruit['id']): Promise<void>;
 }
 
 export class FruitsFileRepo implements FruitsRepoStructure {
@@ -20,6 +23,15 @@ export class FruitsFileRepo implements FruitsRepoStructure {
     return fs
       .readFile(file, { encoding: 'utf-8' })
       .then((data) => JSON.parse(data) as Fruit[]);
+  }
+
+  async readById(id: Fruit['id']) {
+    const data = await fs.readFile(file, { encoding: 'utf-8' }).then((data) => {
+      const dataParsed: Fruit[] = JSON.parse(data);
+      const finalData = dataParsed.filter((item) => item.id === id)[0];
+      return finalData;
+    });
+    return data;
   }
 
   async write(info: Fruit) {
@@ -43,9 +55,8 @@ export class FruitsFileRepo implements FruitsRepoStructure {
   async delete(id: Fruit['id']) {
     const data = await fs.readFile(file, { encoding: 'utf-8' });
     const dataParsed: Fruit[] = JSON.parse(data);
-    const finalData = JSON.stringify(
-      dataParsed.filter((item) => item.id !== id)
-    );
+    const dataFiltered = dataParsed.filter((item) => item.id !== id);
+    const finalData = JSON.stringify(dataFiltered);
     await fs.writeFile(file, finalData, { encoding: 'utf-8' });
   }
 }
