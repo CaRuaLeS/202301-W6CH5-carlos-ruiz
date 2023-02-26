@@ -37,8 +37,6 @@ export class FruitsFileRepo implements FruitsRepoStructure {
   async write(info: Fruit) {
     const data = await fs.readFile(file, { encoding: 'utf-8' });
     const dataParsed: Fruit[] = JSON.parse(data);
-    const maxIdData: number = Math.max(...dataParsed.map((item) => item.id));
-    info.id = maxIdData + 1;
     const finalData = JSON.stringify([...dataParsed, info]);
     await fs.writeFile(file, finalData, { encoding: 'utf-8' });
   }
