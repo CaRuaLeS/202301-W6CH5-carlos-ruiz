@@ -41,7 +41,7 @@ export class Fruitscontroller {
 
   async patch(req: Request, resp: Response, next: NextFunction) {
     try {
-      req.body.id = req.params.id ? req.params.id : req.body.id;
+      // Carefull: req.body.id = req.params.id ? req.params.id : req.body.id;
       const data = await this.repo.update(req.body);
       resp.json({
         results: [data],
