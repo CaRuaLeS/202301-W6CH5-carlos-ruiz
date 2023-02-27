@@ -1,5 +1,7 @@
 node_modules
 
+.DS*
+
 # Logs
 logs
 *.log
@@ -41,7 +43,7 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
+
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
