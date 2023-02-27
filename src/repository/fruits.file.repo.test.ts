@@ -63,7 +63,7 @@ describe('Given the api repo', () => {
       // Arrange
       const mockNewItem = { id: '1', test: 4 };
       (fs.readFile as jest.Mock).mockResolvedValue(
-        '[{"id": "1", "test": "3"}]'
+        '[{"id": "1", "test": "3"}, {"id": "2", "test": "5"}]'
       );
       // Act
       const result = await repo.update(mockNewItem);

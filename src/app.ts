@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import { fruitRouter } from './router/fruits.router.js';
+import { fruitRouter } from './routers/fruits.router.js';
 export const app = express();
 app.disable('x-powered-by');
 
