@@ -9,6 +9,6 @@ const controller = new Fruitscontroller(repo);
 
 fruitRouter.get('/', controller.getAll.bind(controller));
 fruitRouter.get('/:id', controller.get.bind(controller));
-fruitRouter.post('/', controller.create.bind(controller));
-fruitRouter.patch('/:id', controller.update.bind(controller));
+fruitRouter.post('/', controller.post.bind(controller));
+fruitRouter.patch('/:id', controller.patch.bind(controller));
 fruitRouter.delete('/:id', controller.delete.bind(controller));
