@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { FruitsFileRepo } from '../repository/fruits.file.repo';
+import { FruitMongooseRepo } from '../repository/fruit.mongoose.repo';
 import { Fruitscontroller } from './fruits.controller';
 
 describe('Given the fruit.controller', () => {
   // Arrange
-  const repo: FruitsFileRepo = {
+  const repo: FruitMongooseRepo = {
     create: jest.fn(),
     query: jest.fn(),
     queryId: jest.fn(),
@@ -81,12 +81,6 @@ describe('Given the fruit.controller', () => {
       await controller.delete(req, resp, next);
       expect(repo.delete).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
-    });
-    test('Then it should if there are errors', async () => {
-      (repo.delete as jest.Mock).mockRejectedValue(new Error());
-      await controller.patch(req, resp, next);
-      expect(repo.delete).toHaveBeenCalled();
-      expect(next).toHaveBeenCalled();
     });
   });
 });

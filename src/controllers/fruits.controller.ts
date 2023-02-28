@@ -3,7 +3,7 @@ import { Fruit } from '../entites/fruit.js';
 import { Repo } from '../repository/repo.interface.js';
 import createDebug from 'debug';
 
-const debug = createDebug('Fruots:controller');
+const debug = createDebug('Fruits:controller');
 
 export class Fruitscontroller {
   // eslint-disable-next-line no-useless-constructor, no-unused-vars
