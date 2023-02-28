@@ -55,6 +55,6 @@ export class FruitsFileRepo implements FruitsRepoStructure<Fruit> {
     const index = data.findIndex((item) => item.id === id);
     if (index < 0) throw new Error('Id not found');
     data.slice(index, 1);
-    await fs.writeFile(file, JSON.stringify(data), 'utf-8');
+    fs.writeFile(file, JSON.stringify(data), 'utf-8');
   }
 }
