@@ -1,4 +1,4 @@
-export interface FruitsRepoStructure<Fruit> {
+export interface Repo<Fruit> {
   query(): Promise<Fruit[]>;
   queryId(_id: string): Promise<Fruit>;
   create(_info: Partial<Fruit>): Promise<Fruit>;

@@ -1,7 +1,8 @@
 [
-  { "id": 1, "name": "Apple", "color": "Red", "weigth": 2 },
-  { "id": 2, "name": "Banana", "color": "yellow", "weigth": 0.5 },
-  { "id": 3, "name": "Orange", "color": "Orange", "weigth": 1 },
-  { "id": 4, "name": "Berry", "color": "Red", "weigth": 0.1 },
-  { "id": 5, "name": "Pineapple", "color": "Orange", "weigth": 0.1 }
+  { "id": "1", "name": "Apple", "color": "Red", "weigth": 2 },
+  { "id": "2", "name": "Banana", "color": "yellow", "weigth": 0.5 },
+  { "id": "3", "name": "Orange", "color": "Orange", "weigth": 1 },
+  { "id": "4", "name": "Berry", "color": "Red", "weigth": 0.1 },
+  { "name": "AAp", "color": "Orange", "weigth": 1, "id": "933661" },
+  { "name": "Orange", "color": "Purple", "weigth": 2, "id": "733465" }
 ]

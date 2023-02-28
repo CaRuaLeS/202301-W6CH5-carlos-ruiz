@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { Fruitscontroller } from '../controllers/fruits.controller.js';
-import { FruitsFileRepo } from '../repository/fruits.file.repo.js';
+import { FruitMongooseRepo } from '../repository/fruit.mongoose.repo.js';
 
 // eslint-disable-next-line new-cap
 export const fruitRouter = Router();
-export const repo = new FruitsFileRepo();
+const repo = new FruitMongooseRepo();
 const controller = new Fruitscontroller(repo);
 
 fruitRouter.get('/', controller.getAll.bind(controller));

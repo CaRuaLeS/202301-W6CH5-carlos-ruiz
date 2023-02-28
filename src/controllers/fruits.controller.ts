@@ -1,10 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
-import { Fruit } from '../entites/fruit';
-import { FruitsRepoStructure } from '../repository/repo.interface';
+import { Fruit } from '../entites/fruit.js';
+import { Repo } from '../repository/repo.interface.js';
+import createDebug from 'debug';
+
+const debug = createDebug('Fruots:controller');
 
 export class Fruitscontroller {
   // eslint-disable-next-line no-useless-constructor, no-unused-vars
-  constructor(public repo: FruitsRepoStructure<Fruit>) {}
+  constructor(public repo: Repo<Fruit>) {
+    this.repo = repo;
+    debug('Instantiated');
+  }
 
   async getAll(_req: Request, resp: Response, next: NextFunction) {
     try {

@@ -40,13 +40,13 @@ describe('Given the fruit.controller', () => {
   describe('When the get', () => {
     test('Then it should be instance', async () => {
       await controller.get(req, resp, next);
-      expect(repo.query).toHaveBeenCalled();
+      expect(repo.queryId).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
     test('Then it should if there are errors', async () => {
-      (repo.query as jest.Mock).mockRejectedValue(new Error());
+      (repo.queryId as jest.Mock).mockRejectedValue(new Error());
       await controller.get(req, resp, next);
-      expect(repo.query).toHaveBeenCalled();
+      expect(repo.queryId).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
@@ -57,7 +57,7 @@ describe('Given the fruit.controller', () => {
       expect(resp.json).toHaveBeenCalled();
     });
     test('Then it should if there are errors', async () => {
-      (repo.query as jest.Mock).mockRejectedValue(new Error());
+      (repo.create as jest.Mock).mockRejectedValue(new Error());
       await controller.post(req, resp, next);
       expect(repo.create).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
@@ -70,7 +70,7 @@ describe('Given the fruit.controller', () => {
       expect(resp.json).toHaveBeenCalled();
     });
     test('Then it should if there are errors', async () => {
-      (repo.query as jest.Mock).mockRejectedValue(new Error());
+      (repo.update as jest.Mock).mockRejectedValue(new Error());
       await controller.patch(req, resp, next);
       expect(repo.update).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
@@ -83,8 +83,8 @@ describe('Given the fruit.controller', () => {
       expect(resp.json).toHaveBeenCalled();
     });
     test('Then it should if there are errors', async () => {
-      (repo.query as jest.Mock).mockRejectedValue(new Error());
-      await controller.delete(req, resp, next);
+      (repo.delete as jest.Mock).mockRejectedValue(new Error());
+      await controller.patch(req, resp, next);
       expect(repo.delete).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
