@@ -1,4 +1,4 @@
-# Week 6 - Challenge 5 / Week 7 - Challenge 1
+# Week 6 - Challenge 5 / Week 7 - Challenge 1/2
 
 ## API REST Things I already know / Lo que querais
 

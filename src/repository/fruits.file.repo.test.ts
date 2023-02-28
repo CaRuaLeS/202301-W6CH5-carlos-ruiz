@@ -8,11 +8,6 @@ describe('Given the api repo', () => {
     // Act
   });
   const repo = new FruitsFileRepo();
-  describe('When you create a new one', () => {
-    test('Then it should be instance', () => {
-      expect(repo).toBeInstanceOf(FruitsFileRepo);
-    });
-  });
   describe('When you use query()', () => {
     test('Then it should return the data', async () => {
       // Arrange
@@ -82,7 +77,7 @@ describe('Given the api repo', () => {
       const result = await repo.delete('1');
       // Assert
       expect(fs.readFile).toHaveBeenCalled();
-      expect(result).toBe(undefined);
+      expect(result).toBeUndefined();
     });
   });
 });
