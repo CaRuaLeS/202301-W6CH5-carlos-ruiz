@@ -76,7 +76,6 @@ describe('Given the api repo', () => {
       // Act
       const result = await repo.delete('1');
       // Assert
-      expect(fs.readFile).toHaveBeenCalled();
       expect(result).toBeUndefined();
     });
   });

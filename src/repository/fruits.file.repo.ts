@@ -1,10 +1,10 @@
 import fs from 'fs/promises';
+import { Repo } from './repo.interface';
 import { Fruit } from '../entites/fruit';
-import { FruitsRepoStructure } from './repo.interface';
 
 const file = 'data/fruits.json';
 
-export class FruitsFileRepo implements FruitsRepoStructure<Fruit> {
+export class FruitsFileRepo implements Repo<Fruit> {
   async query(): Promise<Fruit[]> {
     const initialData: string = await fs.readFile(file, { encoding: 'utf-8' });
     return JSON.parse(initialData);
@@ -52,9 +52,7 @@ export class FruitsFileRepo implements FruitsRepoStructure<Fruit> {
       encoding: 'utf-8',
     });
     const data: Fruit[] = JSON.parse(initialData);
-    const index = data.findIndex((item) => item.id === id);
-    if (index < 0) throw new Error('Id not found');
-    data.slice(index, 1);
-    fs.writeFile(file, JSON.stringify(data), 'utf-8');
+    const deleteData = data.filter((item) => item.id !== id);
+    fs.writeFile(file, JSON.stringify(deleteData), 'utf-8');
   }
 }
