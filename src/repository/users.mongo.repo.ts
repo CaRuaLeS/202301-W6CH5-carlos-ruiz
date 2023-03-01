@@ -3,18 +3,17 @@ import { Repo } from './repo.interface';
 import createDebug from 'debug';
 import { UserModel } from './user.mongo.model.js';
 import { HTTPError } from '../interfaces/interfaces.js';
-const debug = createDebug('Fruits:app');
+const debug = createDebug('Fruits:repo:users');
 
 // Con el implements estamos haciendo un principio de sustitución de liskov
-export class UserMongooseRepo implements Repo<User> {
+export class UserMongoRepo implements Repo<User> {
   constructor() {
-    debug('Instantiate');
+    debug('Instantiate users');
   }
 
   async query(): Promise<User[]> {
     debug('query');
-    const data = await UserModel.find();
-    return data;
+    return [];
   }
 
   async queryId(id: string): Promise<User> {

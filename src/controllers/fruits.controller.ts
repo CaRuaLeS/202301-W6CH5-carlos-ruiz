@@ -3,13 +3,13 @@ import { Fruit } from '../entites/fruit.js';
 import { Repo } from '../repository/repo.interface.js';
 import createDebug from 'debug';
 
-const debug = createDebug('Fruits:controller');
+const debug = createDebug('Fruits:controller:fruits');
 
 export class Fruitscontroller {
   // eslint-disable-next-line no-useless-constructor, no-unused-vars
   constructor(public repo: Repo<Fruit>) {
     this.repo = repo;
-    debug('Instantiated');
+    debug('Instantiated fcontroller');
   }
 
   async getAll(_req: Request, resp: Response, next: NextFunction) {

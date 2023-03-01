@@ -9,8 +9,7 @@ import { usersRouter } from './routers/users.router.js';
 export const app = express();
 app.disable('x-powered-by');
 
-const debug = createDebug('Fruits:app');
-
+const debug = createDebug('Fruits');
 const corsOptions = {
   origin: '*',
 };
@@ -18,14 +17,15 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.use('/fruits', fruitRouter);
 app.use('/users', usersRouter);
+app.use('/fruits', fruitRouter);
 
 app.get('/', (_req, resp) => {
   resp.json({
     info: '/Esta es una prueba',
     endpoints: {
       things: '/fruits',
+      users: '/users',
     },
   });
 });

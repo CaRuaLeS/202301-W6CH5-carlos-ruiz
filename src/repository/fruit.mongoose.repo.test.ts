@@ -74,6 +74,25 @@ describe('Given FruitMongoRepo', () => {
       expect(FruitModel.findByIdAndUpdate).toHaveBeenCalled();
     });
   });
+  describe('When i use search', () => {
+    test('Then it should return what i serched for', async () => {
+      (FruitModel.find as jest.Mock).mockResolvedValue([
+        {
+          key: 'some',
+          value: 'fruit',
+        },
+      ]);
+
+      const result = await repo.search({ key: 'some', value: 'oso' });
+      expect(FruitModel.find).toHaveBeenCalled();
+      expect(result).toEqual([
+        {
+          key: 'some',
+          value: 'fruit',
+        },
+      ]);
+    });
+  });
   describe('When you use delete()', () => {
     test('Then it should return the data', async () => {
       // Arrange
