@@ -13,8 +13,7 @@ export class UserMongooseRepo implements Repo<User> {
 
   async query(): Promise<User[]> {
     debug('query');
-    const data = await UserModel.find();
-    return data;
+    return [];
   }
 
   async queryId(id: string): Promise<User> {
