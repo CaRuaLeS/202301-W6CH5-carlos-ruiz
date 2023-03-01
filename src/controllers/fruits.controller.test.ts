@@ -8,6 +8,7 @@ describe('Given the fruit.controller', () => {
     create: jest.fn(),
     query: jest.fn(),
     queryId: jest.fn(),
+    search: jest.fn(),
     update: jest.fn(),
     delete: jest.fn(),
   };

@@ -4,6 +4,7 @@ import cors from 'cors';
 import { fruitRouter } from './routers/fruits.router.js';
 import { CustomError } from './interfaces/interfaces.js';
 import createDebug from 'debug';
+import { usersRouter } from './routers/users.router.js';
 
 export const app = express();
 app.disable('x-powered-by');
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 app.use('/fruits', fruitRouter);
+app.use('/users', usersRouter);
 
 app.get('/', (_req, resp) => {
   resp.json({

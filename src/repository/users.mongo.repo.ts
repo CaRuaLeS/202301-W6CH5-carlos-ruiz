@@ -1,45 +1,46 @@
-import { Fruit } from '../entites/fruit';
+import { User } from '../entites/user';
 import { Repo } from './repo.interface';
 import createDebug from 'debug';
-import { FruitModel } from './fruit.mongo.model.js';
+import { UserModel } from './user.mongo.model.js';
 import { HTTPError } from '../interfaces/interfaces.js';
 const debug = createDebug('Fruits:app');
 
 // Con el implements estamos haciendo un principio de sustitución de liskov
-export class FruitMongooseRepo implements Repo<Fruit> {
+export class UserMongooseRepo implements Repo<User> {
   constructor() {
     debug('Instantiate');
   }
 
-  async query(): Promise<Fruit[]> {
+  async query(): Promise<User[]> {
     debug('query');
-    const data = await FruitModel.find();
+    const data = await UserModel.find();
     return data;
   }
 
-  async queryId(id: string): Promise<Fruit> {
+  async queryId(id: string): Promise<User> {
     debug('queryId');
-    const data = await FruitModel.findById(id);
+    const data = await UserModel.findById(id);
     if (!data) throw new HTTPError(404, 'Not found', 'Id not found in queryId');
     return data;
   }
 
+  // Este puede devolver un array vacío en vez de null, para tenerlo en cuenta con el FALSY
   async search(query: { key: string; value: unknown }) {
     debug('search');
-    const data = await FruitModel.find({ [query.key]: query.value });
+    const data = await UserModel.find({ [query.key]: query.value });
     return data;
   }
 
-  async create(info: Partial<Fruit>): Promise<Fruit> {
+  async create(info: Partial<User>): Promise<User> {
     debug('create');
     // El propio create al tener el modelo como está, el propio mongoose se encarga de hacer los errores
-    const data = await FruitModel.create(info);
+    const data = await UserModel.create(info);
     return data;
   }
 
-  async update(info: Partial<Fruit>): Promise<Fruit> {
+  async update(info: Partial<User>): Promise<User> {
     debug('update');
-    const data = await FruitModel.findByIdAndUpdate(info.id, info, {
+    const data = await UserModel.findByIdAndUpdate(info.id, info, {
       new: true,
     });
     if (!data)
@@ -49,7 +50,7 @@ export class FruitMongooseRepo implements Repo<Fruit> {
 
   async delete(id: string): Promise<void> {
     debug('delete');
-    const data = await FruitModel.findByIdAndDelete(id);
+    const data = await UserModel.findByIdAndDelete(id);
     if (!data)
       throw new HTTPError(
         404,
