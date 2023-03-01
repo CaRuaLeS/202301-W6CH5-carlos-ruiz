@@ -3,7 +3,7 @@ import { Repo } from './repo.interface';
 import createDebug from 'debug';
 import { FruitModel } from './fruit.mongo.model.js';
 import { HTTPError } from '../interfaces/interfaces.js';
-const debug = createDebug('Fruits:app');
+const debug = createDebug('Fruits:repo:fruits');
 
 // Con el implements estamos haciendo un principio de sustitución de liskov
 export class FruitMongooseRepo implements Repo<Fruit> {

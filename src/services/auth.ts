@@ -7,14 +7,14 @@ export type PayloadToken = {
   role: string;
 };
 
-const salt = 20;
+const salt = 10;
 
 export class Auth {
   // Al hacerlo estático, se puede acceder directamente poniendo Auth.createJWT()
   static createJWT(payload: PayloadToken) {
     // PAsar payload y secreto
     // Secreto se guarda en .env, sirve para verificar si algiuen ha hecho token o no
-    return jwt.sign('', config.jwtSecret as string);
+    return jwt.sign(payload, config.jwtSecret as string);
   }
 
   static verifyJWT(token: string) {
