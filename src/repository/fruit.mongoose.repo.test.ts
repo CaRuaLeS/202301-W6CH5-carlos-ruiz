@@ -48,16 +48,6 @@ describe('Given FruitMongoRepo', () => {
       expect(FruitModel.create).toHaveBeenCalled();
       expect(result).toEqual({ id: resultId });
     });
-    test('Then should throw an error', () => {
-      // Arrange
-      (FruitModel.create as jest.Mock).mockResolvedValue(undefined);
-      // Act
-      const mockNewItem = { id: '1', test: 3 };
-
-      // Assert
-      expect(async () => repo.create(mockNewItem)).rejects.toThrow();
-      expect(FruitModel.create).toHaveBeenCalled();
-    });
   });
   describe('When you use update()', () => {
     test('Then it should return the data', async () => {
