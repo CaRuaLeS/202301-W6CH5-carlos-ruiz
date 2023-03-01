@@ -5,12 +5,10 @@ const fruitSchema = new Schema<Fruit>({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   color: {
     type: String,
     required: true,
-    unique: true,
   },
   weight: {
     type: Number,
