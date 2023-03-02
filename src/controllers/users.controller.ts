@@ -25,7 +25,6 @@ export class UsersController {
         results: [data],
       });
     } catch (error) {
-      debug('nollega');
       next(error);
     }
   }
