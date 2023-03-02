@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
-import { FruitMongooseRepo } from '../repository/fruit.mongoose.repo';
+import { User } from '../entites/user';
+import { FruitMongooseRepo } from '../repository/fruit.mongo.repo';
+import { Repo } from '../repository/repo.interface';
 import { Fruitscontroller } from './fruits.controller';
 
 describe('Given the fruit.controller', () => {
@@ -12,6 +14,7 @@ describe('Given the fruit.controller', () => {
     update: jest.fn(),
     delete: jest.fn(),
   };
+  const mockRepoUsers = {} as unknown as Repo<User>;
   const req = {
     body: {},
     params: {
@@ -23,7 +26,7 @@ describe('Given the fruit.controller', () => {
   } as unknown as Response;
   const next = jest.fn();
 
-  const controller = new Fruitscontroller(repo);
+  const controller = new Fruitscontroller(repo, mockRepoUsers);
 
   describe('When the getAll', () => {
     test('Then it should be instance', async () => {

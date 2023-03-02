@@ -2,13 +2,18 @@ import { NextFunction, Request, Response } from 'express';
 import { Fruit } from '../entites/fruit.js';
 import { Repo } from '../repository/repo.interface.js';
 import createDebug from 'debug';
+import { RequestPlus } from '../interceptors/logged.js';
+import { User } from '../entites/user.js';
+import { HTTPError } from '../interfaces/interfaces.js';
 
 const debug = createDebug('Fruits:controller:fruits');
 
 export class Fruitscontroller {
   // eslint-disable-next-line no-useless-constructor, no-unused-vars
-  constructor(public repo: Repo<Fruit>) {
+  constructor(public repo: Repo<Fruit>, public repoUsers: Repo<User>) {
     this.repo = repo;
+    this.repoUsers = repoUsers;
+
     debug('Instantiated fcontroller');
   }
 
@@ -34,11 +39,21 @@ export class Fruitscontroller {
     }
   }
 
-  async post(req: Request, resp: Response, next: NextFunction) {
+  async post(req: RequestPlus, resp: Response, next: NextFunction) {
     try {
-      const data = await this.repo.create(req.body);
+      const userId = req.info?.id;
+      if (!userId) throw new HTTPError(404, 'Not found', 'User Id not found');
+      // Es un await porque queryId devuelve una promesa
+      const actualUser = await this.repoUsers.queryId(userId); // Tira un error si no devulve la promesa
+      // Aqui estamos viendo si el ID de x y el id del token son el mismo
+      req.body.owner = userId;
+      const newFruit = await this.repo.create(req.body);
+      // Opción bidireccional
+      actualUser.fruits.push(newFruit);
+      this.repoUsers.update(actualUser);
+
       resp.json({
-        results: [data],
+        results: [newFruit],
       });
     } catch (error) {
       next(error);
