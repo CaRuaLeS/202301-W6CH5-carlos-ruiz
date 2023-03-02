@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, SchemaTypes } from 'mongoose';
 import { Fruit } from '../entites/fruit.js';
 
 const fruitSchema = new Schema<Fruit>({
@@ -15,6 +15,10 @@ const fruitSchema = new Schema<Fruit>({
     required: true,
     min: 0,
     max: 100,
+  },
+  owner: {
+    type: SchemaTypes.ObjectId,
+    ref: 'User',
   },
 });
 

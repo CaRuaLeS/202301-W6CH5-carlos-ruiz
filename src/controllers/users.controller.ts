@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import { Repo } from '../repository/repo.interface';
+import { Repo } from '../repository/repo.interface.js';
 import createDebug from 'debug';
 import { User } from '../entites/user.js';
 import { HTTPError } from '../interfaces/interfaces.js';
 import { Auth, PayloadToken } from '../services/auth.js';
+import { RequestPlus } from '../interceptors/logged.js';
 
 const debug = createDebug('Fruits:controller:users');
 
@@ -19,17 +20,19 @@ export class UsersController {
       if (!req.body.email || !req.body.password)
         throw new HTTPError(401, 'Unauthorized', 'Invalid email');
       req.body.password = await Auth.createHash(req.body.password);
+      req.body.fruits = [];
       const data = await this.repo.create(req.body);
       resp.status(201);
       resp.json({
         results: [data],
       });
     } catch (error) {
+      debug('nollega');
       next(error);
     }
   }
 
-  async login(req: Request, resp: Response, next: NextFunction) {
+  async login(req: RequestPlus, resp: Response, next: NextFunction) {
     // Llegan datos de usurio del body
     // Search de email
     // Si lo tengo -> crear el token
@@ -45,9 +48,10 @@ export class UsersController {
       });
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Invalid email');
-      if (!(await Auth.compare(req.body.passwd, data[0].password)))
+      if (!(await Auth.compare(req.body.password, data[0].password)))
         throw new HTTPError(401, 'Unauthorized', 'Password not match');
       const payload: PayloadToken = {
+        id: data[0].id,
         email: data[0].email,
         role: 'admin',
       };

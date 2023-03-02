@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, SchemaTypes } from 'mongoose';
 import { User } from '../entites/user';
 
 const userSchema = new Schema<User>({
@@ -11,6 +11,14 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
   },
+
+  // Este es opciona!
+  fruits: [
+    {
+      type: SchemaTypes.ObjectId,
+      ref: 'Fruit',
+    },
+  ],
 });
 
 userSchema.set('toJSON', {
