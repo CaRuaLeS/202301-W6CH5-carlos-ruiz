@@ -13,7 +13,9 @@ export class FruitMongooseRepo implements Repo<Fruit> {
 
   async query(): Promise<Fruit[]> {
     debug('query');
-    const data = await FruitModel.find();
+    const data = await FruitModel.find().populate('owner', {
+      fruits: 0,
+    });
     return data;
   }
 

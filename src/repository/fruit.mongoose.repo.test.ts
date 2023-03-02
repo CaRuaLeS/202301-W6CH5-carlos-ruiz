@@ -1,5 +1,5 @@
 import { FruitModel } from './fruit.mongo.model';
-import { FruitMongooseRepo } from './fruit.mongoose.repo';
+import { FruitMongooseRepo } from './fruit.mongo.repo';
 
 jest.mock('./fruit.mongo.model');
 
