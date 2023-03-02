@@ -17,8 +17,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.use('/users', usersRouter);
 app.use('/fruits', fruitRouter);
+app.use('/users', usersRouter);
 
 app.get('/', (_req, resp) => {
   resp.json({
@@ -34,7 +34,6 @@ app.get('/:id', (req, resp) => {
   resp.send(req.params.id);
 });
 app.post('/', (req, resp) => {
-  req.body.id = 12;
   resp.send(req.body);
 });
 app.patch('/:id');
