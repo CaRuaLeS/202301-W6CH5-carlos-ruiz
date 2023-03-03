@@ -35,4 +35,5 @@ fruitSchema.set('toJSON', {
 
 export const FruitModel = model('Fruit', fruitSchema, 'fruits');
 // El model es un objecto, que es un createModel en realidad
-// Con el modelo tiene el nombre de la colección, se pone el plural y en minuscula
+// Con el modelo tiene el nombre de la colección, si no se pone el segundo string, se pone el plural y en minuscula automaticamente
+// El modelo que anadimos respoeta el esquema que definimos!!, que tienen que cumplir tus datos

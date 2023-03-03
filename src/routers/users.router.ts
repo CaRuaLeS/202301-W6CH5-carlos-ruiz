@@ -7,5 +7,6 @@ export const usersRouter = Router();
 const repo = new UserMongoRepo();
 const controller = new UsersController(repo);
 
+usersRouter.get('/', controller.getAll.bind(controller));
 usersRouter.post('/register', controller.register.bind(controller));
 usersRouter.post('/login', controller.login.bind(controller));

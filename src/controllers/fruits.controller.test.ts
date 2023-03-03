@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { User } from '../entites/user';
 import { RequestPlus } from '../interceptors/logged';
-import { FruitMongooseRepo } from '../repository/fruit.mongo.repo';
+import { FruitMongoRepo } from '../repository/fruit.mongo.repo';
 import { Repo } from '../repository/repo.interface';
 import { PayloadToken } from '../services/auth';
 import { Fruitscontroller } from './fruits.controller';
 
 describe('Given the fruit.controller', () => {
   // Arrange
-  const repo: FruitMongooseRepo = {
+  const repo: FruitMongoRepo = {
     create: jest.fn(),
     query: jest.fn(),
     queryId: jest.fn(),

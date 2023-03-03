@@ -1,18 +1,20 @@
 import { Request, Response } from 'express';
 
-import { RequestPlus } from './logged';
+import { logged, RequestPlus } from './logged';
 
 describe('Given the logged', () => {
-  const reqPlus = {
-    info: {
-      id: null,
-    },
+  const mockReqPlus = {
+    get: jest.fn(),
   } as unknown as RequestPlus;
-  const resp = {
+  const mockResp = {
     json: jest.fn(),
   } as unknown as Response;
-  const next = jest.fn();
+  const mockNext = jest.fn();
   describe('When ', () => {
-    test('Then it should be instance', async () => {});
+    test('Then it should be instance', async () => {
+      (mockReqPlus.get as jest.Mock).mockResolvedValue('');
+      const result = await logged(mockReqPlus, mockResp, mockNext);
+      expect(mockNext).toHaveBeenCalled();
+    });
   });
 });

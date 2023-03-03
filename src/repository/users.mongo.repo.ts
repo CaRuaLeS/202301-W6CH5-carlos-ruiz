@@ -7,19 +7,32 @@ const debug = createDebug('Fruits:repo:users');
 
 // Con el implements estamos haciendo un principio de sustitución de liskov
 export class UserMongoRepo implements Repo<User> {
+  private static instance: UserMongoRepo;
+
+  public static getInstance(): UserMongoRepo {
+    if (!UserMongoRepo.instance) {
+      UserMongoRepo.instance = new UserMongoRepo();
+    }
+
+    return UserMongoRepo.instance;
+  }
+
   constructor() {
     debug('Instantiate users');
   }
 
   async query(): Promise<User[]> {
     debug('query');
-    const data = await UserModel.find();
+    const data = await UserModel.find().populate('fruits', { owner: 0 });
     return data;
   }
 
   async queryId(id: string): Promise<User> {
     debug('queryId');
-    const data = await UserModel.findById(id);
+    const data = await UserModel.findById(id)
+      .populate('fruits', { owner: 0 })
+      .exec();
+    // El .exec crea a la func del populate como promesa
     if (!data) throw new HTTPError(404, 'Not found', 'Id not found in queryId');
     return data;
   }

@@ -1,10 +1,10 @@
 import { FruitModel } from './fruit.mongo.model';
-import { FruitMongooseRepo } from './fruit.mongo.repo';
+import { FruitMongoRepo } from './fruit.mongo.repo';
 
 jest.mock('./fruit.mongo.model');
 
 describe('Given FruitMongoRepo', () => {
-  const repo = new FruitMongooseRepo();
+  const repo = new FruitMongoRepo();
 
   describe('When i use query', () => {
     test('Then should return the data', async () => {

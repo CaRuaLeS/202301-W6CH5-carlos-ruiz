@@ -64,4 +64,15 @@ export class UsersController {
       next(error);
     }
   }
+
+  async getAll(_req: Request, resp: Response, next: NextFunction) {
+    try {
+      const data = await this.repo.query();
+      resp.json({
+        results: data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

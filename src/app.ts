@@ -1,6 +1,9 @@
 import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
+import { __dirname } from './config.js';
+
 import { fruitRouter } from './routers/fruits.router.js';
 import { CustomError } from './interfaces/interfaces.js';
 import createDebug from 'debug';
@@ -19,6 +22,7 @@ app.use(cors(corsOptions));
 
 app.use('/fruits', fruitRouter);
 app.use('/users', usersRouter);
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.get('/', (_req, resp) => {
   resp.json({

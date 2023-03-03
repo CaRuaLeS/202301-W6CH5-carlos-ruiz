@@ -1,24 +1,37 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { HTTPError } from '../interfaces/interfaces.js';
-import { Auth } from '../services/auth.js';
+import { FruitMongoRepo } from '../repository/fruit.mongo.repo.js';
 import { RequestPlus } from './logged.js';
 
-export function authorized(
+export async function authorized(
   req: RequestPlus,
   resp: Response,
-  next: NextFunction
+  next: NextFunction,
+  fruitRepo: FruitMongoRepo
 ) {
   const authHeader = req.get('Authorization'); // RECORDAR QUE ESTO ESTA FUERA DEL TRY
   try {
-    if (!authHeader)
-      throw new HTTPError(498, 'Token invalid', 'Header not auth');
+    // Tengo el id del usuario (req.info.id)
+    if (!req.info)
+      throw new HTTPError(
+        498,
+        'Invalid token',
+        'Token not found in authorized'
+      );
+    const userId = req.info.id;
+    // Tengo el id de la cosa (req.params.id)
+    const fruitId = req.params.id;
+    // Busco la cosa
 
-    if (!authHeader.startsWith('Bearer'))
-      throw new HTTPError(498, 'Token invalid', 'Not bearer in auth header');
+    const actualFruit = await fruitRepo.queryId(fruitId);
+    // Comparo cosa.owner.id con req.info.id
+    if (actualFruit.owner.id === userId)
+      throw new HTTPError(
+        401,
+        'Not authorized',
+        'The id fruit not match the userId'
+      );
 
-    const token = authHeader.slice(6);
-    const payload = Auth.verifyJWTgetPayload(token);
-    req.info = payload;
     next();
   } catch (error) {
     next(error);

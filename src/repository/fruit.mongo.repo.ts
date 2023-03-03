@@ -6,7 +6,17 @@ import { HTTPError } from '../interfaces/interfaces.js';
 const debug = createDebug('Fruits:repo:fruits');
 
 // Con el implements estamos haciendo un principio de sustitución de liskov
-export class FruitMongooseRepo implements Repo<Fruit> {
+export class FruitMongoRepo implements Repo<Fruit> {
+  private static instance: FruitMongoRepo;
+
+  public static getInstance(): FruitMongoRepo {
+    if (!FruitMongoRepo.instance) {
+      FruitMongoRepo.instance = new FruitMongoRepo();
+    }
+
+    return FruitMongoRepo.instance;
+  }
+
   constructor() {
     debug('Instantiate');
   }
