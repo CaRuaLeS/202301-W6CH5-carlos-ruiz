@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import { User } from '../entites/user';
+import { RequestPlus } from '../interceptors/logged';
 import { FruitMongooseRepo } from '../repository/fruit.mongo.repo';
 import { Repo } from '../repository/repo.interface';
+import { PayloadToken } from '../services/auth';
 import { Fruitscontroller } from './fruits.controller';
 
 describe('Given the fruit.controller', () => {
@@ -14,7 +16,10 @@ describe('Given the fruit.controller', () => {
     update: jest.fn(),
     delete: jest.fn(),
   };
-  const mockRepoUsers = {} as unknown as Repo<User>;
+  const mockRepoUsers = {
+    queryId: jest.fn(),
+    update: jest.fn(),
+  } as unknown as Repo<User>;
   const req = {
     body: {},
     params: {
@@ -54,17 +59,29 @@ describe('Given the fruit.controller', () => {
       expect(next).toHaveBeenCalled();
     });
   });
-  describe('When the post', () => {
-    test('Then it should be instance', async () => {
-      await controller.post(req, resp, next);
-      expect(repo.create).toHaveBeenCalled();
-      expect(resp.json).toHaveBeenCalled();
-    });
-    test('Then it should if there are errors', async () => {
-      (repo.create as jest.Mock).mockRejectedValue(new Error());
-      await controller.post(req, resp, next);
-      expect(repo.create).toHaveBeenCalled();
+  describe('When the post method is called', () => {
+    test('Then if userID is false it should call next', async () => {
+      const reqPlus = {
+        info: {
+          id: null,
+        },
+      } as unknown as RequestPlus;
+
+      await controller.post(reqPlus, resp, next);
       expect(next).toHaveBeenCalled();
+    });
+    test('Then if everything is OK', async () => {
+      const reqPlus = {
+        body: {},
+        info: {
+          id: '1234',
+        },
+      } as unknown as RequestPlus;
+      (mockRepoUsers.queryId as jest.Mock).mockResolvedValue({ fruits: [] });
+
+      await controller.post(reqPlus, resp, next);
+      expect(mockRepoUsers.queryId).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
     });
   });
   describe('When the patch', () => {
@@ -80,7 +97,7 @@ describe('Given the fruit.controller', () => {
       expect(next).toHaveBeenCalled();
     });
   });
-  describe('When the patch', () => {
+  describe('When the delete', () => {
     test('Then it should be instance', async () => {
       await controller.delete(req, resp, next);
       expect(repo.delete).toHaveBeenCalled();
