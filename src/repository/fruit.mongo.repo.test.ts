@@ -8,7 +8,10 @@ describe('Given FruitMongoRepo', () => {
 
   describe('When i use query', () => {
     test('Then should return the data', async () => {
-      (FruitModel.find as jest.Mock).mockResolvedValue([]);
+      (FruitModel.find as jest.Mock).mockImplementation(() => ({
+        populate: jest.fn().mockResolvedValue([]),
+      }));
+
       const result = await repo.query();
 
       expect(FruitModel.find).toHaveBeenCalled();

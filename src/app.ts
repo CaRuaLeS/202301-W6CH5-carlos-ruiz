@@ -30,15 +30,6 @@ app.get('/', (_req, resp) => {
   });
 });
 
-app.get('/:id', (req, resp) => {
-  resp.send(req.params.id);
-});
-app.post('/', (req, resp) => {
-  resp.send(req.body);
-});
-app.patch('/:id');
-app.delete('/:id');
-
 app.use(
   (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
     debug('Middleware de errores');
