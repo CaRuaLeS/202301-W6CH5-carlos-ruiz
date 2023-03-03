@@ -73,13 +73,9 @@ export class Fruitscontroller {
   }
 
   async delete(req: Request, resp: Response, next: NextFunction) {
-    try {
-      this.repo.delete(req.params.id);
-      resp.json({
-        results: [],
-      });
-    } catch (error) {
-      next(error);
-    }
+    await this.repo.delete(req.params.id);
+    resp.json({
+      results: [],
+    });
   }
 }
